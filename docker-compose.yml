@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  dev:
+    build:
+     context: .
+     dockerfile: Dockerfile.dev
+    command:
+      - npm
+      - run
+      - start
+    volumes:
+      - .:/work
+    working_dir: /work
+    links:
+      - database
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+
+
+  database:
+    image: mongo:3.4
+    ports:
+      - "27017:27017"
